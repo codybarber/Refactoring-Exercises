@@ -116,26 +116,34 @@ Hint/Option 1: Extract a function, perhaps called getHitPoints that takes in a c
 Hint/Option 2: Instead of option 1, extract a function, perhaps called attack, which both calculates the hit points and induces the damage on the other character.
 */
 
-function fight(human, goblin) {
-  // human attacks goblin
-  var goblinHitPoints = human.power;
-  // 50% chance of double points
-  if (Math.random() > 0.5) {
-    goblinHitPoints = goblinHitPoints * 2;
+function getHitPoints(character, probability) {
+  var hitPoints = character.power;
+  if (Math.random() > probability) {
+    return hitPoints * 2;
+  } else {
+    return hitPoints;
   }
-  // induce damage to goblin
-  goblin.health -= goblinHitPoints;
-
-  // goblin attacks human
-  var humanHitPoints = goblin.power;
-  // 20% chance of double points
-  if (Math.random() > 0.2) {
-    humanHitPoints = humanHitPoints * 2;
-  }
-  // induce damage to human
-  human.health -= humanHitPoints;
 }
 
+function fight(human, goblin) {
+  // human attacks goblin
+  // var goblinHitPoints = human.power;
+  // 50% chance of double points
+  // if (Math.random() > 0.5) {
+  //   goblinHitPoints = goblinHitPoints * 2;
+  // }
+  // induce damage to goblin
+  goblin.health -= getHitPoints(human, 0.5);
+  human.health -= getHitPoints(goblin, 0.2);
+
+  // goblin attacks human
+  // var humanHitPoints = goblin.power;
+  // 20% chance of double points
+  // if (Math.random() > 0.2) {
+  //   humanHitPoints = humanHitPoints * 2;
+  // }
+  // induce damage to human
+}
 /*
 This function determines the winner of a roshambo game, a.k.a
 rock paper sissors. It takes in 2 parameters:
